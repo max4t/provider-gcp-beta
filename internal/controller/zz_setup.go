@@ -9,8 +9,8 @@ import (
 
 	"github.com/upbound/upjet/pkg/controller"
 
-	resource "github.com/upbound/upjet-provider-template/internal/controller/null/resource"
-	providerconfig "github.com/upbound/upjet-provider-template/internal/controller/providerconfig"
+	resource "github.com/max4t/provider-gcp-beta/internal/controller/null/resource"
+	providerconfig "github.com/max4t/provider-gcp-beta/internal/controller/providerconfig"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
