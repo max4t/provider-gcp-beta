@@ -1,4 +1,4 @@
-apiVersion: null.gcp-beta.upbound.io/v1alpha1
+apiVersion: null.gcp-beta.max4t.xyz/v1alpha1
 kind: Resource
 metadata:
   name: example

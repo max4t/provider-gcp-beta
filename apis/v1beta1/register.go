@@ -13,7 +13,7 @@ import (
 
 // Package type metadata.
 const (
-	Group   = "gcp-beta.upbound.io"
+	Group   = "gcp-beta.max4t.xyz"
 	Version = "v1beta1"
 )
 
