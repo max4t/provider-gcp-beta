@@ -6,25 +6,29 @@ package clients
 
 import (
 	"context"
-	"encoding/json"
 
+	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
 	"github.com/pkg/errors"
+	"github.com/upbound/upjet/pkg/terraform"
 	"k8s.io/apimachinery/pkg/types"
 	"sigs.k8s.io/controller-runtime/pkg/client"
-
-	"github.com/upbound/upjet/pkg/terraform"
 
 	"github.com/max4t/provider-gcp-beta/apis/v1beta1"
 )
 
 const (
+	keyProject = "project"
+
+	keyCredentials = "credentials"
+)
+
+const (
 	// error messages
-	errNoProviderConfig     = "no providerConfigRef provided"
-	errGetProviderConfig    = "cannot get referenced ProviderConfig"
-	errTrackUsage           = "cannot track ProviderConfig usage"
-	errExtractCredentials   = "cannot extract credentials"
-	errUnmarshalCredentials = "cannot unmarshal gcp-beta credentials as JSON"
+	errNoProviderConfig   = "no providerConfigRef provided"
+	errGetProviderConfig  = "cannot get referenced ProviderConfig"
+	errTrackUsage         = "cannot track ProviderConfig usage"
+	errExtractCredentials = "cannot extract credentials"
 )
 
 // TerraformSetupBuilder builds Terraform a terraform.SetupFn function which
@@ -53,20 +57,23 @@ func TerraformSetupBuilder(version, providerSource, providerVersion string) terr
 			return ps, errors.Wrap(err, errTrackUsage)
 		}
 
-		data, err := resource.CommonCredentialExtractor(ctx, pc.Spec.Credentials.Source, client, pc.Spec.Credentials.CommonCredentialSelectors)
-		if err != nil {
-			return ps, errors.Wrap(err, errExtractCredentials)
-		}
-		creds := map[string]string{}
-		if err := json.Unmarshal(data, &creds); err != nil {
-			return ps, errors.Wrap(err, errUnmarshalCredentials)
+		// set provider configuration
+		ps.Configuration = map[string]interface{}{
+			keyProject: pc.Spec.ProjectID,
 		}
 
-		// Set credentials in Terraform provider configuration.
-		/*ps.Configuration = map[string]any{
-			"username": creds["username"],
-			"password": creds["password"],
-		}*/
+		switch pc.Spec.Credentials.Source { //nolint:exhaustive
+		case xpv1.CredentialsSourceInjectedIdentity:
+			// We don't need to do anything here, as the TF Provider will take care of workloadIdentity etc.
+		default:
+			data, err := resource.CommonCredentialExtractor(ctx, pc.Spec.Credentials.Source, client, pc.Spec.Credentials.CommonCredentialSelectors)
+			if err != nil {
+				return ps, errors.Wrap(err, errExtractCredentials)
+			}
+
+			// set provider configuration keys for GCP credentials
+			ps.Configuration[keyCredentials] = string(data)
+		}
 		return ps, nil
 	}
 }

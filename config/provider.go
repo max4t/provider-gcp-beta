@@ -10,7 +10,7 @@ import (
 
 	ujconfig "github.com/upbound/upjet/pkg/config"
 
-	"github.com/max4t/provider-gcp-beta/config/null"
+	"github.com/max4t/provider-gcp-beta/config/compute"
 )
 
 const (
@@ -34,7 +34,7 @@ func GetProvider() *ujconfig.Provider {
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions
-		null.Configure,
+		compute.Configure,
 	} {
 		configure(pc)
 	}

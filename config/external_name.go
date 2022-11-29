@@ -9,8 +9,8 @@ import "github.com/upbound/upjet/pkg/config"
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
-	// Import requires using a randomly generated ID from provider: nl-2e21sda
-	"null_resource": config.IdentifierFromProvider,
+	// Imported by using the following format: projects/{{project}}/regions/{{region}}/targetTcpProxies/{{name}}
+	"google_compute_region_target_tcp_proxy": config.TemplatedStringAsIdentifier("name", "projects/{{ .setup.configuration.project }}/regions/{{ .parameters.region }}/targetTcpProxies/{{ .external_name }}"),
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the
