@@ -9,6 +9,7 @@ import (
 	_ "embed"
 
 	ujconfig "github.com/upbound/upjet/pkg/config"
+	"github.com/upbound/upjet/pkg/registry/reference"
 
 	"github.com/max4t/provider-gcp-beta/config/compute"
 )
@@ -27,10 +28,19 @@ var providerMetadata string
 // GetProvider returns provider configuration
 func GetProvider() *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
-		ujconfig.WithIncludeList(ExternalNameConfigured()),
 		ujconfig.WithDefaultResourceOptions(
+			groupOverrides(),
+			externalNameConfig(),
+			defaultVersion(),
 			ExternalNameConfigurations(),
-		))
+			// externalNameConfigurations(),
+			descriptionOverrides(),
+		),
+		ujconfig.WithRootGroup("gcp-beta.max4t.xyz"),
+		ujconfig.WithShortName("gcp-beta"),
+		ujconfig.WithIncludeList(ExternalNameConfigured()),
+		ujconfig.WithReferenceInjectors([]ujconfig.ReferenceInjector{reference.NewInjector(modulePath)}),
+	)
 
 	for _, configure := range []func(provider *ujconfig.Provider){
 		// add custom config functions

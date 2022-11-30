@@ -1,0 +1,16 @@
+apiVersion: compute.gcp-beta.max4t.xyz/v1beta1
+kind: RegionTargetTCPProxy
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1beta1/regiontargettcpproxy
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    backendService: ${google_compute_region_backend_service.default.id}
+    provider: ${google-beta}
+    region: europe-west4
+
+---
+

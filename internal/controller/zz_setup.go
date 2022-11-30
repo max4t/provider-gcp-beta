@@ -9,7 +9,7 @@ import (
 
 	"github.com/upbound/upjet/pkg/controller"
 
-	resource "github.com/max4t/provider-gcp-beta/internal/controller/null/resource"
+	regiontargettcpproxy "github.com/max4t/provider-gcp-beta/internal/controller/compute/regiontargettcpproxy"
 	providerconfig "github.com/max4t/provider-gcp-beta/internal/controller/providerconfig"
 )
 
@@ -17,7 +17,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
-		resource.Setup,
+		regiontargettcpproxy.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

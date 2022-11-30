@@ -4,9 +4,10 @@ go 1.19
 
 require (
 	github.com/crossplane/crossplane-runtime v0.19.0-rc.0.0.20221012013934-bce61005a175
-	github.com/crossplane/crossplane-tools v0.0.0-20220310165030-1f43fc12793e
+	github.com/crossplane/crossplane-tools v0.0.0-20220901191540-806c0b01097b
+	github.com/hashicorp/terraform-plugin-sdk/v2 v2.24.0
 	github.com/pkg/errors v0.9.1
-	github.com/upbound/upjet v0.8.0-rc.0.0.20221024111721-c82119f5ef34
+	github.com/upbound/upjet v0.8.0-rc.0.0.20221111123128-6de200a3a8b0
 	gopkg.in/alecthomas/kingpin.v2 v2.2.6
 	k8s.io/apimachinery v0.25.0
 	k8s.io/client-go v0.25.0
@@ -72,7 +73,6 @@ require (
 	github.com/hashicorp/terraform-json v0.14.0 // indirect
 	github.com/hashicorp/terraform-plugin-go v0.14.0 // indirect
 	github.com/hashicorp/terraform-plugin-log v0.7.0 // indirect
-	github.com/hashicorp/terraform-plugin-sdk/v2 v2.24.0 // indirect
 	github.com/hashicorp/vault/api v1.3.1 // indirect
 	github.com/hashicorp/vault/sdk v0.3.0 // indirect
 	github.com/hashicorp/yamux v0.0.0-20181012175058-2f1d1f20f75d // indirect
@@ -133,7 +133,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/api v0.25.0 // indirect
-	k8s.io/apiextensions-apiserver v0.24.0 // indirect
+	k8s.io/apiextensions-apiserver v0.25.0 // indirect
 	k8s.io/component-base v0.25.0 // indirect
 	k8s.io/klog/v2 v2.70.1 // indirect
 	k8s.io/kube-openapi v0.0.0-20220803162953-67bda5d908f1 // indirect
