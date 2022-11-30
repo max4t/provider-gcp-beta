@@ -161,6 +161,16 @@ func (in *ForwardingRuleParameters) DeepCopyInto(out *ForwardingRuleParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.IPAddressRef != nil {
+		in, out := &in.IPAddressRef, &out.IPAddressRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.IPAddressSelector != nil {
+		in, out := &in.IPAddressSelector, &out.IPAddressSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.IPProtocol != nil {
 		in, out := &in.IPProtocol, &out.IPProtocol
 		*out = new(string)
@@ -195,6 +205,16 @@ func (in *ForwardingRuleParameters) DeepCopyInto(out *ForwardingRuleParameters) 
 		in, out := &in.Network, &out.Network
 		*out = new(string)
 		**out = **in
+	}
+	if in.NetworkRef != nil {
+		in, out := &in.NetworkRef, &out.NetworkRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.NetworkSelector != nil {
+		in, out := &in.NetworkSelector, &out.NetworkSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.NetworkTier != nil {
 		in, out := &in.NetworkTier, &out.NetworkTier
@@ -244,10 +264,30 @@ func (in *ForwardingRuleParameters) DeepCopyInto(out *ForwardingRuleParameters) 
 		*out = new(string)
 		**out = **in
 	}
+	if in.SubnetworkRef != nil {
+		in, out := &in.SubnetworkRef, &out.SubnetworkRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.SubnetworkSelector != nil {
+		in, out := &in.SubnetworkSelector, &out.SubnetworkSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
+	}
 	if in.Target != nil {
 		in, out := &in.Target, &out.Target
 		*out = new(string)
 		**out = **in
+	}
+	if in.TargetRef != nil {
+		in, out := &in.TargetRef, &out.TargetRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.TargetSelector != nil {
+		in, out := &in.TargetSelector, &out.TargetSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 }
 

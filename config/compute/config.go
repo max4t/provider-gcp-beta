@@ -22,6 +22,18 @@ func Configure(p *config.Provider) {
 			Type:      "github.com/upbound/provider-gcp/apis/compute/v1beta1.BackendService",
 			Extractor: common.PathSelfLinkExtractor,
 		}
+		r.References["ip_address"] = config.Reference{
+			Type: "github.com/upbound/provider-gcp/apis/compute/v1beta1.Address",
+		}
+		r.References["network"] = config.Reference{
+			Type: "github.com/upbound/provider-gcp/apis/compute/v1beta1.Network",
+		}
+		r.References["subnetwork"] = config.Reference{
+			Type: "github.com/upbound/provider-gcp/apis/compute/v1beta1.Subnetwork",
+		}
+		r.References["target"] = config.Reference{
+			Type: "RegionTargetTCPProxy",
+		}
 		config.MarkAsRequired(r.TerraformResource, "region")
 	})
 

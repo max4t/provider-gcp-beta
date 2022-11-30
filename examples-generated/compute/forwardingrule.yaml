@@ -10,13 +10,19 @@ spec:
   forProvider:
     ipProtocol: TCP
     loadBalancingScheme: INTERNAL_MANAGED
-    network: ${google_compute_network.ilb_network.id}
+    networkSelector:
+      matchLabels:
+        testing.upbound.io/example-name: ilb_network
     networkTier: PREMIUM
     portRange: "80"
     provider: ${google-beta}
     region: europe-west1
-    subnetwork: ${google_compute_subnetwork.ilb_subnet.id}
-    target: ${google_compute_region_target_http_proxy.default.id}
+    subnetworkSelector:
+      matchLabels:
+        testing.upbound.io/example-name: ilb_subnet
+    targetSelector:
+      matchLabels:
+        testing.upbound.io/example-name: default
 
 ---
 

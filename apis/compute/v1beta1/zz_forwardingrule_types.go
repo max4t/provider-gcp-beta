@@ -90,8 +90,17 @@ type ForwardingRuleParameters struct {
 	// that has validateForProxyless field set to true.
 	// For Private Service Connect forwarding rules that forward traffic to
 	// Google APIs, IP address must be provided.
+	// +crossplane:generate:reference:type=github.com/upbound/provider-gcp/apis/compute/v1beta1.Address
 	// +kubebuilder:validation:Optional
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
+
+	// Reference to a Address in compute to populate ipAddress.
+	// +kubebuilder:validation:Optional
+	IPAddressRef *v1.Reference `json:"ipAddressRef,omitempty" tf:"-"`
+
+	// Selector for a Address in compute to populate ipAddress.
+	// +kubebuilder:validation:Optional
+	IPAddressSelector *v1.Selector `json:"ipAddressSelector,omitempty" tf:"-"`
 
 	// The IP protocol to which this rule applies.
 	// When the load balancing scheme is INTERNAL, only TCP and UDP are
@@ -130,8 +139,17 @@ type ForwardingRuleParameters struct {
 	// the load balanced IP should belong to for this Forwarding Rule. If
 	// this field is not specified, the default network will be used.
 	// This field is only used for INTERNAL load balancing.
+	// +crossplane:generate:reference:type=github.com/upbound/provider-gcp/apis/compute/v1beta1.Network
 	// +kubebuilder:validation:Optional
 	Network *string `json:"network,omitempty" tf:"network,omitempty"`
+
+	// Reference to a Network in compute to populate network.
+	// +kubebuilder:validation:Optional
+	NetworkRef *v1.Reference `json:"networkRef,omitempty" tf:"-"`
+
+	// Selector for a Network in compute to populate network.
+	// +kubebuilder:validation:Optional
+	NetworkSelector *v1.Selector `json:"networkSelector,omitempty" tf:"-"`
 
 	// The networking tier used for configuring this address. If this field is not
 	// specified, it is assumed to be PREMIUM.
@@ -197,15 +215,33 @@ type ForwardingRuleParameters struct {
 	// If the network specified is in auto subnet mode, this field is
 	// optional. However, if the network is in custom subnet mode, a
 	// subnetwork must be specified.
+	// +crossplane:generate:reference:type=github.com/upbound/provider-gcp/apis/compute/v1beta1.Subnetwork
 	// +kubebuilder:validation:Optional
 	Subnetwork *string `json:"subnetwork,omitempty" tf:"subnetwork,omitempty"`
+
+	// Reference to a Subnetwork in compute to populate subnetwork.
+	// +kubebuilder:validation:Optional
+	SubnetworkRef *v1.Reference `json:"subnetworkRef,omitempty" tf:"-"`
+
+	// Selector for a Subnetwork in compute to populate subnetwork.
+	// +kubebuilder:validation:Optional
+	SubnetworkSelector *v1.Selector `json:"subnetworkSelector,omitempty" tf:"-"`
 
 	// The URL of the target resource to receive the matched traffic.
 	// The target must live in the same region as the forwarding rule.
 	// The forwarded traffic must be of a type appropriate to the target
 	// object.
+	// +crossplane:generate:reference:type=RegionTargetTCPProxy
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
+
+	// Reference to a RegionTargetTCPProxy to populate target.
+	// +kubebuilder:validation:Optional
+	TargetRef *v1.Reference `json:"targetRef,omitempty" tf:"-"`
+
+	// Selector for a RegionTargetTCPProxy to populate target.
+	// +kubebuilder:validation:Optional
+	TargetSelector *v1.Selector `json:"targetSelector,omitempty" tf:"-"`
 }
 
 type ServiceDirectoryRegistrationsObservation struct {
