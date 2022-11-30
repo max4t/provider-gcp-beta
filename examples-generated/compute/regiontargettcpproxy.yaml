@@ -8,7 +8,9 @@ metadata:
   name: default
 spec:
   forProvider:
-    backendService: ${google_compute_region_backend_service.default.id}
+    backendServiceSelector:
+      matchLabels:
+        testing.upbound.io/example-name: default
     provider: ${google-beta}
     region: europe-west4
 

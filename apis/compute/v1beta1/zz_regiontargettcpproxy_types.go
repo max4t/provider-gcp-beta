@@ -31,8 +31,17 @@ type RegionTargetTCPProxyObservation struct {
 type RegionTargetTCPProxyParameters struct {
 
 	// A reference to the BackendService resource.
-	// +kubebuilder:validation:Required
-	BackendService *string `json:"backendService" tf:"backend_service,omitempty"`
+	// +crossplane:generate:reference:type=github.com/upbound/provider-gcp/apis/compute/v1beta1.BackendService
+	// +kubebuilder:validation:Optional
+	BackendService *string `json:"backendService,omitempty" tf:"backend_service,omitempty"`
+
+	// Reference to a BackendService in compute to populate backendService.
+	// +kubebuilder:validation:Optional
+	BackendServiceRef *v1.Reference `json:"backendServiceRef,omitempty" tf:"-"`
+
+	// Selector for a BackendService in compute to populate backendService.
+	// +kubebuilder:validation:Optional
+	BackendServiceSelector *v1.Selector `json:"backendServiceSelector,omitempty" tf:"-"`
 
 	// An optional description of this resource.
 	// +kubebuilder:validation:Optional

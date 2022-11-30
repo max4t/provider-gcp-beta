@@ -10,6 +10,7 @@ Copyright 2022 Max T.
 package v1beta1
 
 import (
+	"github.com/crossplane/crossplane-runtime/apis/common/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 )
 
@@ -114,6 +115,16 @@ func (in *RegionTargetTCPProxyParameters) DeepCopyInto(out *RegionTargetTCPProxy
 		in, out := &in.BackendService, &out.BackendService
 		*out = new(string)
 		**out = **in
+	}
+	if in.BackendServiceRef != nil {
+		in, out := &in.BackendServiceRef, &out.BackendServiceRef
+		*out = new(v1.Reference)
+		(*in).DeepCopyInto(*out)
+	}
+	if in.BackendServiceSelector != nil {
+		in, out := &in.BackendServiceSelector, &out.BackendServiceSelector
+		*out = new(v1.Selector)
+		(*in).DeepCopyInto(*out)
 	}
 	if in.Description != nil {
 		in, out := &in.Description, &out.Description
