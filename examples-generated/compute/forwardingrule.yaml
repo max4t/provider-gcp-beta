@@ -1,0 +1,22 @@
+apiVersion: compute.gcp-beta.max4t.xyz/v1beta1
+kind: ForwardingRule
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1beta1/forwardingrule
+  labels:
+    testing.upbound.io/example-name: google_compute_forwarding_rule
+  name: google-compute-forwarding-rule
+spec:
+  forProvider:
+    ipProtocol: TCP
+    loadBalancingScheme: INTERNAL_MANAGED
+    network: ${google_compute_network.ilb_network.id}
+    networkTier: PREMIUM
+    portRange: "80"
+    provider: ${google-beta}
+    region: europe-west1
+    subnetwork: ${google_compute_subnetwork.ilb_subnet.id}
+    target: ${google_compute_region_target_http_proxy.default.id}
+
+---
+

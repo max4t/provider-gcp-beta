@@ -9,6 +9,7 @@ import (
 
 	"github.com/upbound/upjet/pkg/controller"
 
+	forwardingrule "github.com/max4t/provider-gcp-beta/internal/controller/compute/forwardingrule"
 	regiontargettcpproxy "github.com/max4t/provider-gcp-beta/internal/controller/compute/regiontargettcpproxy"
 	providerconfig "github.com/max4t/provider-gcp-beta/internal/controller/providerconfig"
 )
@@ -17,6 +18,7 @@ import (
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
+		forwardingrule.Setup,
 		regiontargettcpproxy.Setup,
 		providerconfig.Setup,
 	} {

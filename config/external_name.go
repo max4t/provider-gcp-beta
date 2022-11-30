@@ -11,6 +11,8 @@ import "github.com/upbound/upjet/pkg/config"
 var ExternalNameConfigs = map[string]config.ExternalName{
 	// Imported by using the following format: projects/{{project}}/regions/{{region}}/targetTcpProxies/{{name}}
 	"google_compute_region_target_tcp_proxy": config.TemplatedStringAsIdentifier("name", "projects/{{ .setup.configuration.project }}/regions/{{ .parameters.region }}/targetTcpProxies/{{ .external_name }}"),
+	// Imported by using the following format: projects/{{project}}/regions/{{region}}/forwardingRules/{{name}}
+	"google_compute_forwarding_rule": config.TemplatedStringAsIdentifier("name", "projects/{{ .setup.configuration.project }}/regions/{{ .parameters.region }}/forwardingRules/{{ .external_name }}"),
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

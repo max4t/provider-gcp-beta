@@ -10,8 +10,35 @@ import (
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
 	errors "github.com/pkg/errors"
 	v1beta1 "github.com/upbound/provider-gcp/apis/compute/v1beta1"
+	common "github.com/upbound/provider-gcp/config/common"
 	client "sigs.k8s.io/controller-runtime/pkg/client"
 )
+
+// ResolveReferences of this ForwardingRule.
+func (mg *ForwardingRule) ResolveReferences(ctx context.Context, c client.Reader) error {
+	r := reference.NewAPIResolver(c, mg)
+
+	var rsp reference.ResolutionResponse
+	var err error
+
+	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
+		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.BackendService),
+		Extract:      common.SelfLinkExtractor(),
+		Reference:    mg.Spec.ForProvider.BackendServiceRef,
+		Selector:     mg.Spec.ForProvider.BackendServiceSelector,
+		To: reference.To{
+			List:    &v1beta1.BackendServiceList{},
+			Managed: &v1beta1.BackendService{},
+		},
+	})
+	if err != nil {
+		return errors.Wrap(err, "mg.Spec.ForProvider.BackendService")
+	}
+	mg.Spec.ForProvider.BackendService = reference.ToPtrValue(rsp.ResolvedValue)
+	mg.Spec.ForProvider.BackendServiceRef = rsp.ResolvedReference
+
+	return nil
+}
 
 // ResolveReferences of this RegionTargetTCPProxy.
 func (mg *RegionTargetTCPProxy) ResolveReferences(ctx context.Context, c client.Reader) error {
@@ -22,7 +49,7 @@ func (mg *RegionTargetTCPProxy) ResolveReferences(ctx context.Context, c client.
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.BackendService),
-		Extract:      reference.ExternalName(),
+		Extract:      common.SelfLinkExtractor(),
 		Reference:    mg.Spec.ForProvider.BackendServiceRef,
 		Selector:     mg.Spec.ForProvider.BackendServiceSelector,
 		To: reference.To{
