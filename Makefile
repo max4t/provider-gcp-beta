@@ -13,7 +13,7 @@ export TERRAFORM_PROVIDER_DOWNLOAD_NAME := terraform-provider-google-beta
 export TERRAFORM_NATIVE_PROVIDER_BINARY := terraform-provider-google-beta_v4.44.1_x5
 export TERRAFORM_DOCS_PATH := website/docs/r
 
-PLATFORMS ?= linux_amd64 linux_arm64
+PLATFORMS ?= linux_amd64
 
 # -include will silently skip missing files, which allows us
 # to load those files with a target in the Makefile. If only
