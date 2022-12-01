@@ -30,6 +30,8 @@ import (
 	"github.com/max4t/provider-gcp-beta/internal/clients"
 	"github.com/max4t/provider-gcp-beta/internal/controller"
 	"github.com/max4t/provider-gcp-beta/internal/features"
+
+	computev1beta1 "github.com/upbound/provider-gcp/apis/compute/v1beta1"
 )
 
 func main() {
@@ -73,6 +75,7 @@ func main() {
 	})
 	kingpin.FatalIfError(err, "Cannot create controller manager")
 	kingpin.FatalIfError(apis.AddToScheme(mgr.GetScheme()), "Cannot add GCP Beta APIs to scheme")
+	kingpin.FatalIfError(computev1beta1.AddToScheme(mgr.GetScheme()), "Cannot add GCP Compute APIs to scheme")
 	o := tjcontroller.Options{
 		Options: xpcontroller.Options{
 			Logger:                  log,
