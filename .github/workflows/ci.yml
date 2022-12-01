@@ -238,17 +238,17 @@ jobs:
           username: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
           password: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
 
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+
       - name: Login to Upbound (up-style)
         run: make login
         if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
         env:
           UP_USER: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
           UP_PASSWORD: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
-
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          submodules: true
 
       - name: Fetch History
         run: git fetch --prune --unshallow
