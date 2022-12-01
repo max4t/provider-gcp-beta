@@ -145,6 +145,12 @@ cobertura:
 		grep -v zz_ | \
 		$(GOCOVER_COBERTURA) > $(GO_TEST_OUTPUT)/cobertura-coverage.xml
 
+login: $(UP)
+	@$(UP) login -q
+
+logout: $(UP)
+	@$(UP) logout -q
+
 # Update the submodules, such as the common build scripts.
 submodules:
 	@git submodule sync
@@ -177,7 +183,7 @@ local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
 
 e2e: local-deploy uptest
 
-.PHONY: cobertura submodules fallthrough run crds.clean
+.PHONY: cobertura submodules fallthrough run crds.clean login logout
 
 # ====================================================================================
 # Special Targets
