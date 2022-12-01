@@ -243,13 +243,6 @@ jobs:
         with:
           submodules: true
 
-      - name: Login to Upbound (up-style)
-        run: make login
-        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
-        env:
-          UP_USER: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
-          UP_PASSWORD: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
-
       - name: Fetch History
         run: git fetch --prune --unshallow
 
@@ -257,6 +250,13 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: ${{ env.GO_VERSION }}
+
+      - name: Login to Upbound (up-style)
+        run: make login
+        if: env.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR != ''
+        env:
+          UP_USER: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_USR }}
+          UP_PASSWORD: ${{ secrets.UPBOUND_MARKETPLACE_PUSH_ROBOT_PSW }}
 
       - name: Find the Go Build Cache
         id: go
