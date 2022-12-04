@@ -117,8 +117,8 @@ func (mg *RegionTargetTCPProxy) ResolveReferences(ctx context.Context, c client.
 		Reference:    mg.Spec.ForProvider.BackendServiceRef,
 		Selector:     mg.Spec.ForProvider.BackendServiceSelector,
 		To: reference.To{
-			List:    &v1beta1.BackendServiceList{},
-			Managed: &v1beta1.BackendService{},
+			List:    &v1beta1.RegionBackendServiceList{},
+			Managed: &v1beta1.RegionBackendService{},
 		},
 	})
 	if err != nil {
