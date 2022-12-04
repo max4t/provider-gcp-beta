@@ -8,11 +8,11 @@ spec:
     - apiGroups:
       - compute.gcp.upbound.io
       resources:
-      - BackendService
-      - RegionBackendService
-      - Address
-      - Network
-      - Subnetwork
+      - backendservices
+      - regionbackendservices
+      - addresses
+      - networks
+      - subnetworks
       verbs:
       - get
       - list
