@@ -2,3 +2,17 @@ apiVersion: meta.pkg.crossplane.io/v1alpha1
 kind: Provider
 metadata:
   name: provider-gcp-beta
+spec:
+  controller:
+    permissionRequests:
+    - apiGroups:
+      - compute.gcp.upbound.io
+      resources:
+      - BackendService
+      - Address
+      - Network
+      - Subnetwork
+      verbs:
+      - get
+      - list
+      - watch
