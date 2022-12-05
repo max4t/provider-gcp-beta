@@ -8,6 +8,7 @@ package v1beta1
 import (
 	"context"
 	reference "github.com/crossplane/crossplane-runtime/pkg/reference"
+	common1 "github.com/max4t/provider-gcp-beta/config/common"
 	errors "github.com/pkg/errors"
 	v1beta1 "github.com/upbound/provider-gcp/apis/compute/v1beta1"
 	common "github.com/upbound/provider-gcp/config/common"
@@ -39,7 +40,7 @@ func (mg *ForwardingRule) ResolveReferences(ctx context.Context, c client.Reader
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.IPAddress),
-		Extract:      reference.ExternalName(),
+		Extract:      common1.IDExtractor(),
 		Reference:    mg.Spec.ForProvider.IPAddressRef,
 		Selector:     mg.Spec.ForProvider.IPAddressSelector,
 		To: reference.To{

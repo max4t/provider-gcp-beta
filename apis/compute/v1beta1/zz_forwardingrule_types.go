@@ -91,6 +91,7 @@ type ForwardingRuleParameters struct {
 	// For Private Service Connect forwarding rules that forward traffic to
 	// Google APIs, IP address must be provided.
 	// +crossplane:generate:reference:type=github.com/upbound/provider-gcp/apis/compute/v1beta1.Address
+	// +crossplane:generate:reference:extractor=github.com/max4t/provider-gcp-beta/config/common.IDExtractor()
 	// +kubebuilder:validation:Optional
 	IPAddress *string `json:"ipAddress,omitempty" tf:"ip_address,omitempty"`
 

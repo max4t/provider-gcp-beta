@@ -1,6 +1,7 @@
 package compute
 
 import (
+	mycommon "github.com/max4t/provider-gcp-beta/config/common"
 	"github.com/upbound/provider-gcp/config/common"
 	"github.com/upbound/upjet/pkg/config"
 )
@@ -24,7 +25,7 @@ func Configure(p *config.Provider) {
 		}
 		r.References["ip_address"] = config.Reference{
 			Type:      "github.com/upbound/provider-gcp/apis/compute/v1beta1.Address",
-			Extractor: common.PathSelfLinkExtractor,
+			Extractor: mycommon.PathIDExtractor,
 		}
 		r.References["network"] = config.Reference{
 			Type: "github.com/upbound/provider-gcp/apis/compute/v1beta1.Network",
