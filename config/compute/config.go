@@ -23,7 +23,8 @@ func Configure(p *config.Provider) {
 			Extractor: common.PathSelfLinkExtractor,
 		}
 		r.References["ip_address"] = config.Reference{
-			Type: "github.com/upbound/provider-gcp/apis/compute/v1beta1.Address",
+			Type:      "github.com/upbound/provider-gcp/apis/compute/v1beta1.Address",
+			Extractor: common.PathSelfLinkExtractor,
 		}
 		r.References["network"] = config.Reference{
 			Type: "github.com/upbound/provider-gcp/apis/compute/v1beta1.Network",
