@@ -15,7 +15,6 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/logging"
 	"github.com/crossplane/crossplane-runtime/pkg/ratelimiter"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
-	tjcontroller "github.com/upbound/upjet/pkg/controller"
 	"github.com/upbound/upjet/pkg/terraform"
 	"gopkg.in/alecthomas/kingpin.v2"
 	kerrors "k8s.io/apimachinery/pkg/api/errors"
@@ -30,6 +29,7 @@ import (
 	"github.com/max4t/provider-gcp-beta/internal/clients"
 	"github.com/max4t/provider-gcp-beta/internal/controller"
 	"github.com/max4t/provider-gcp-beta/internal/features"
+	"github.com/max4t/provider-gcp-beta/internal/hack"
 
 	computev1beta1 "github.com/upbound/provider-gcp/apis/compute/v1beta1"
 )
@@ -76,7 +76,7 @@ func main() {
 	kingpin.FatalIfError(err, "Cannot create controller manager")
 	kingpin.FatalIfError(apis.AddToScheme(mgr.GetScheme()), "Cannot add GCP Beta APIs to scheme")
 	kingpin.FatalIfError(computev1beta1.AddToScheme(mgr.GetScheme()), "Cannot add GCP Compute APIs to scheme")
-	o := tjcontroller.Options{
+	o := hack.Options{
 		Options: xpcontroller.Options{
 			Logger:                  log,
 			GlobalRateLimiter:       ratelimiter.NewGlobal(*maxReconcileRate),
@@ -86,7 +86,7 @@ func main() {
 		Provider: config.GetProvider(),
 		// use the following WorkspaceStoreOption to enable the shared gRPC mode
 		// terraform.WithProviderRunner(terraform.NewSharedProvider(log, os.Getenv("TERRAFORM_NATIVE_PROVIDER_PATH"), terraform.WithNativeProviderArgs("-debuggable")))
-		WorkspaceStore: terraform.NewWorkspaceStore(log),
+		WorkspaceStore: &hack.Store{WorkspaceStore: terraform.NewWorkspaceStore(log)},
 		SetupFn:        clients.TerraformSetupBuilder(*terraformVersion, *providerSource, *providerVersion),
 	}
 

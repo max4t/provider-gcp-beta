@@ -11,14 +11,14 @@ import (
 	"github.com/crossplane/crossplane-runtime/pkg/event"
 	"github.com/crossplane/crossplane-runtime/pkg/reconciler/providerconfig"
 	"github.com/crossplane/crossplane-runtime/pkg/resource"
-	"github.com/upbound/upjet/pkg/controller"
+	"github.com/max4t/provider-gcp-beta/internal/hack"
 
 	"github.com/max4t/provider-gcp-beta/apis/v1beta1"
 )
 
 // Setup adds a controller that reconciles ProviderConfigs by accounting for
 // their current usage.
-func Setup(mgr ctrl.Manager, o controller.Options) error {
+func Setup(mgr ctrl.Manager, o hack.Options) error {
 	name := providerconfig.ControllerName(v1beta1.ProviderConfigGroupKind)
 
 	of := resource.ProviderConfigKinds{

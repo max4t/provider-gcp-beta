@@ -19,10 +19,11 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 
 	v1beta1 "github.com/max4t/provider-gcp-beta/apis/compute/v1beta1"
+	"github.com/max4t/provider-gcp-beta/internal/hack"
 )
 
 // Setup adds a controller that reconciles ForwardingRule managed resources.
-func Setup(mgr ctrl.Manager, o tjcontroller.Options) error {
+func Setup(mgr ctrl.Manager, o hack.Options) error {
 	name := managed.ControllerName(v1beta1.ForwardingRule_GroupVersionKind.String())
 	var initializers managed.InitializerChain
 	initializers = append(initializers, managed.NewNameAsExternalName(mgr.GetClient()))
