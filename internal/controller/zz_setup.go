@@ -11,6 +11,7 @@ import (
 
 	forwardingrule "github.com/max4t/provider-gcp-beta/internal/controller/compute/forwardingrule"
 	regiontargettcpproxy "github.com/max4t/provider-gcp-beta/internal/controller/compute/regiontargettcpproxy"
+	subnetwork "github.com/max4t/provider-gcp-beta/internal/controller/compute/subnetwork"
 	providerconfig "github.com/max4t/provider-gcp-beta/internal/controller/providerconfig"
 )
 
@@ -20,6 +21,7 @@ func Setup(mgr ctrl.Manager, o hack.Options) error {
 	for _, setup := range []func(ctrl.Manager, hack.Options) error{
 		forwardingrule.Setup,
 		regiontargettcpproxy.Setup,
+		subnetwork.Setup,
 		providerconfig.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {

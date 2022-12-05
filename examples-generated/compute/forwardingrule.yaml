@@ -26,3 +26,43 @@ spec:
 
 ---
 
+apiVersion: compute.gcp-beta.max4t.xyz/v1beta1
+kind: Subnetwork
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1beta1/forwardingrule
+  labels:
+    testing.upbound.io/example-name: ilb_subnet
+  name: ilb-subnet
+spec:
+  forProvider:
+    ipCidrRange: 10.0.1.0/24
+    networkSelector:
+      matchLabels:
+        testing.upbound.io/example-name: ilb_network
+    provider: ${google-beta}
+    region: europe-west1
+
+---
+
+apiVersion: compute.gcp-beta.max4t.xyz/v1beta1
+kind: Subnetwork
+metadata:
+  annotations:
+    meta.upbound.io/example-id: compute/v1beta1/forwardingrule
+  labels:
+    testing.upbound.io/example-name: proxy_subnet
+  name: proxy-subnet
+spec:
+  forProvider:
+    ipCidrRange: 10.0.0.0/24
+    networkSelector:
+      matchLabels:
+        testing.upbound.io/example-name: ilb_network
+    provider: ${google-beta}
+    purpose: INTERNAL_HTTPS_LOAD_BALANCER
+    region: europe-west1
+    role: ACTIVE
+
+---
+

@@ -9,6 +9,8 @@ import "github.com/upbound/upjet/pkg/config"
 // ExternalNameConfigs contains all external name configurations for this
 // provider.
 var ExternalNameConfigs = map[string]config.ExternalName{
+	// Imported by using the following format: projects/{{project}}/regions/{{region}}/subnetworks/{{name}}
+	"google_compute_subnetwork": config.TemplatedStringAsIdentifier("name", "projects/{{ .setup.configuration.project }}/regions/{{ .parameters.region }}/subnetworks/{{ .external_name }}"),
 	// Imported by using the following format: projects/{{project}}/regions/{{region}}/targetTcpProxies/{{name}}
 	"google_compute_region_target_tcp_proxy": config.TemplatedStringAsIdentifier("name", "projects/{{ .setup.configuration.project }}/regions/{{ .parameters.region }}/targetTcpProxies/{{ .external_name }}"),
 	// Imported by using the following format: projects/{{project}}/regions/{{region}}/forwardingRules/{{name}}

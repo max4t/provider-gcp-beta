@@ -8,6 +8,15 @@ import (
 
 // Configure configures individual resources by adding custom ResourceConfigurators.
 func Configure(p *config.Provider) {
+	p.AddResourceConfigurator("google_compute_subnetwork", func(r *config.Resource) {
+		config.MarkAsRequired(r.TerraformResource, "region")
+
+		r.References["network"] = config.Reference{
+			Type:      "github.com/upbound/provider-gcp/apis/compute/v1beta1.Network",
+			Extractor: mycommon.PathIDExtractor,
+		}
+	})
+
 	p.AddResourceConfigurator("google_compute_region_target_tcp_proxy", func(r *config.Resource) {
 		config.MarkAsRequired(r.TerraformResource, "region")
 		r.References["backend_service"] = config.Reference{
