@@ -23,6 +23,9 @@ Copyright 2021 Upbound Inc.
 
 // Run Upjet generator
 //go:generate go run ../cmd/generator/main.go ..
+// Hack to use custom stuff
+//go:generate bash -c "sed -e 's|github.com/upbound/upjet/pkg/controller|github.com/max4t/provider-gcp-beta/internal/hack|' -e 's/controller.Options/hack.Options/' --in-place ../internal/controller/zz_setup.go"
+//go:generate bash -c "find ../internal/controller -iname 'zz_controller.go' -exec sed -e 's/tjcontroller.Options/hack.Options/' -e 's|^)$|\\t\\\"github.com/max4t/provider-gcp-beta/internal/hack\\\"\\n)|' --in-place '{}' \\;"
 
 // Generate deepcopy methodsets and CRD manifests
 //go:generate go run -tags generate sigs.k8s.io/controller-tools/cmd/controller-gen object:headerFile=../hack/boilerplate.go.txt paths=./... crd:allowDangerousTypes=true,crdVersions=v1 output:artifacts:config=../package/crds
