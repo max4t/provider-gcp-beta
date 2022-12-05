@@ -17,6 +17,8 @@ var (
 	PathIDExtractor = SelfPackagePath + ".IDExtractor()"
 )
 
+// IDExtractor extracts URI of the resources from
+// "status.atProvider.id" which is quite common among all GCP resources.
 func IDExtractor() reference.ExtractValueFn {
 	return func(mg resource.Managed) string {
 		paved, err := fieldpath.PaveObject(mg)

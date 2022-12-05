@@ -12,10 +12,12 @@ import (
 var _ tjcontroller.Store = (*Store)(nil)
 var _ terraform.StoreCleaner = (*Store)(nil)
 
+// Store modifies terraform.WorkspaceStore to use provider aliases
 type Store struct {
 	*terraform.WorkspaceStore
 }
 
+// Workspace makes terraform.WorkspaceStore.Workspace use aliases
 func (s *Store) Workspace(ctx context.Context, c resource.SecretClient, tr resource.Terraformed, ts terraform.Setup, cfg *config.Resource) (*terraform.Workspace, error) {
 	return s.WorkspaceStore.Workspace(ctx, c, &aliasedTerraformed{tr}, ts, cfg)
 }
