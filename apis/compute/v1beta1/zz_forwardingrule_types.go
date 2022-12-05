@@ -233,6 +233,7 @@ type ForwardingRuleParameters struct {
 	// The forwarded traffic must be of a type appropriate to the target
 	// object.
 	// +crossplane:generate:reference:type=RegionTargetTCPProxy
+	// +crossplane:generate:reference:extractor=github.com/max4t/provider-gcp-beta/config/common.IDExtractor()
 	// +kubebuilder:validation:Optional
 	Target *string `json:"target,omitempty" tf:"target,omitempty"`
 

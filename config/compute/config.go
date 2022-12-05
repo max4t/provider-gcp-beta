@@ -34,7 +34,8 @@ func Configure(p *config.Provider) {
 			Type: "github.com/upbound/provider-gcp/apis/compute/v1beta1.Subnetwork",
 		}
 		r.References["target"] = config.Reference{
-			Type: "RegionTargetTCPProxy",
+			Type:      "RegionTargetTCPProxy",
+			Extractor: mycommon.PathIDExtractor,
 		}
 		config.MarkAsRequired(r.TerraformResource, "region")
 	})

@@ -88,7 +88,7 @@ func (mg *ForwardingRule) ResolveReferences(ctx context.Context, c client.Reader
 
 	rsp, err = r.Resolve(ctx, reference.ResolutionRequest{
 		CurrentValue: reference.FromPtrValue(mg.Spec.ForProvider.Target),
-		Extract:      reference.ExternalName(),
+		Extract:      common1.IDExtractor(),
 		Reference:    mg.Spec.ForProvider.TargetRef,
 		Selector:     mg.Spec.ForProvider.TargetSelector,
 		To: reference.To{
